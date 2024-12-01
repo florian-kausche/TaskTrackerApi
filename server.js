@@ -6,10 +6,7 @@ require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 3000;
 
-if (!process.env.MONGODB_URI) {
-  console.error('MongoDB URI is not defined in environment variables');
-  process.exit(1);
-}
+process.env.MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:3000/defaultDb';
 
 app.use(express.json());
 
