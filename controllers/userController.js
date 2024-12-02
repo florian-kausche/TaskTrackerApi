@@ -1,4 +1,6 @@
-const mongodb = require('../config/database');
+const mongodb = require('../config/database.js');
+
+const User = require('../models/user.js');
 
 // Get all users
 const getUsers = async (req, res) => {
