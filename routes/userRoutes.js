@@ -1,19 +1,26 @@
+// routes/userRoutes.js
 const express = require('express');
-const { body } = require('express-validator');
-const { getUsers, createUser, updateUser, deleteUser } = require('../controllers/userController');
 const router = express.Router();
+const { getUsers, getUserById, createUser, updateUser, deleteUser, getPosts, createPost, updatePost, deletePost } = require('../controllers/userController');
+const { validateUser } = require('../middlewares/validation');
 
-router.get('/', getUsers);
-router.post('/', 
-    [
-        body('name').notEmpty().withMessage('Name is required'),
-        body('email').isEmail().withMessage('Valid email is required'),
-        body('password').isLength({ min: 6 }).withMessage('Password must be at least 6 characters'),
-        // Add other validations as needed
-    ],
-    createUser
-);
-router.put('/:id', updateUser);
-router.delete('/:id', deleteUser);
+// User routes
+router.get('/users', getUsers);  // Get all users
+router.post('/users', validateUser, createUser);  // Create a user
+
+// GET a single user by ID
+router.get('/users/:id', getUserById);
+
+// PUT update a user by ID
+router.put('/users/:id', validateUser, updateUser);
+
+// DELETE a user by ID
+router.delete('/users/:id', deleteUser);
+
+// Post routes
+router.get('/posts', getPosts);  // Get all posts
+router.post('/posts', createPost);  // Create a post
+router.put('/posts/:id', updatePost);  // Update a post
+router.delete('/posts/:id', deletePost);  // Delete a post
 
 module.exports = router;

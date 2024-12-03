@@ -9,6 +9,7 @@ const userSchema = new mongoose.Schema({
     address: { type: String, required: true },
     phone: { type: String, required: true },
     createdAt: { type: Date, default: Date.now },
+    updatedAt: { type: Date, default: Date.now },  // added `updatedAt`
 });
 
 module.exports = mongoose.model('User', userSchema);
